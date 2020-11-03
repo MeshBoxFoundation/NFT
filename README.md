@@ -6,7 +6,7 @@ deposit_usdt.sol
 
 
 pool.sol
-https://github.com/OpenZeppelin/openzeppelin-contracts/tree/release-v2.3.0/contracts/token/ERC721 获取的标准合约（ERC721_Standard.sol），开发了 pool 合约
+https://github.com/OpenZeppelin/openzeppelin-contracts/tree/release-v2.3.0/contracts/token/ERC721  获取的标准合约（ERC721_Standard.sol），开发了 pool 合约
 主要改动是，新增了对持有合约nft的用户依据持有的区块时间，发放MeshToken奖励。该合约运行在Spectrum公链。
 
 
@@ -16,7 +16,7 @@ swap_meshbox.sol
 
 
 关于 swap_meshbox.sol 运行流程的简要说明
-1、部署mesh token (https://github.com/MeshBoxFoundation/token/blob/master/MeshBox.sol)，开启交易权限(调用 enableTransfer方法 )
+1、部署mesh token (https://github.com/MeshBoxFoundation/token/blob/master/MeshBox.sol)， 开启交易权限(调用 enableTransfer方法 )
 2、部署erc721，给erc721合约地址转入mesh，并发行erc721币
 3、部署swap，把erc721地址加入到swap合约地址支持的交易列表
 4、持有erc721中nft的地址，对swap合约开启对应nft的转移授权
