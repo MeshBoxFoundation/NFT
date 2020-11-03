@@ -17,8 +17,13 @@ https://github.com/OpenZeppelin/openzeppelin-contracts/tree/release-v2.3.0/contr
 
 ### 关于 swap_meshbox.sol 运行流程的简要说明
 1、部署mesh token (https://github.com/MeshBoxFoundation/token/blob/master/MeshBox.sol)， 开启交易权限(调用 enableTransfer方法 )
+
 2、部署erc721，给erc721合约地址转入mesh，并发行erc721币
+
 3、部署swap，把erc721地址加入到swap合约地址支持的交易列表
+
 4、持有erc721中nft的地址，对swap合约开启对应nft的转移授权
+
 5、在swap合约调用挂牌
+
 6、其他地址买入
