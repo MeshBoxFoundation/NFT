@@ -11,7 +11,7 @@ https://github.com/OpenZeppelin/openzeppelin-contracts/tree/release-v2.3.0/contr
 
 
 ### swap_meshbox.sol
-主要用途是让持有SMC的用户和持有ERC721合约的nft代币的用户交换资产，管理员注册了指定ERC721合约的交易资格后，该ERC721合约的nft代币即可通过 swap_meshbox 合约进行交换。该合约运行在Spectrum公链
+主要用途是让持有smt的用户和持有ERC721合约的nft代币的用户交换资产，管理员注册了指定ERC721合约的交易资格后，该ERC721合约的nft代币即可通过 swap_meshbox 合约进行交换。该合约运行在Spectrum公链
 
 
 
