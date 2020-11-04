@@ -415,6 +415,7 @@ contract ERC721 is ERC165, IERC721 {
 
     address meshTokenAddress;
 
+    uint256 firstRewardBlock;
     uint256 lastRewardBlock;
 
     mapping (uint256 => uint256) _blockReward;
@@ -597,13 +598,13 @@ contract ERC721 is ERC165, IERC721 {
      * @param to The address that will own the minted token
      * @param tokenId uint256 ID of the token to be minted
      */
-    function _mint(address to, uint256 tokenId, uint256 blockNumber, uint256 reward) internal {
+    function _mint(address to, uint256 tokenId, uint256 reward) internal {
         require(to != address(0), "ERC721: mint to the zero address");
         require(!_exists(tokenId), "ERC721: token already minted");
 
         _tokenOwner[tokenId] = to;
         _ownedTokensCount[to].increment();
-        _holdTokenClock[tokenId] = blockNumber;
+        _holdTokenClock[tokenId] = firstRewardBlock;
         _blockReward[tokenId] = reward;
 
         emit Transfer(address(0), to, tokenId);
@@ -694,7 +695,7 @@ contract ERC721 is ERC165, IERC721 {
 
 
     //结算tokenId对应的mesh token，并更新区块计时
-    //MeshBox Token Contract https://github.com/MeshBoxFoundation/token/blob/master/MeshBox.sol
+    //MeshBox Contract https://github.com/MeshBoxFoundation/token/blob/master/MeshBox.sol
     function _settle(uint256 tokenId, address receiveAddr) internal {
 
         require (_holdTokenClock[tokenId] > 0);
@@ -814,12 +815,13 @@ contract Ownable {
 
 contract MeshBox is ERC721, Ownable {
 
-    constructor (address _addr, uint256 _number) public {
+    constructor (address _addr, uint256 _firstNumber, uint256 _lastNumber) public {
         meshTokenAddress = _addr;
-        lastRewardBlock = _number;
+        firstRewardBlock = _firstNumber;
+        lastRewardBlock = _lastNumber;
     }
 
-    function mint(address to, uint256 tokenId, uint256 blockNumber, uint256 reward) public onlyOwner {
-        _mint(to, tokenId, blockNumber, reward);
+    function mint(address to, uint256 tokenId, uint256 reward) public onlyOwner {
+        _mint(to, tokenId, reward);
     }
 }
