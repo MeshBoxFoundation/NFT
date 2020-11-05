@@ -227,10 +227,10 @@ contract Ownable {
 contract swapNft is Ownable{
 
     //挂牌记录
-    event quotedRecord(address indexed owner, uint8 op, address tokenAddress, uint256 tokenId, uint256 price);//_op：1 质押 0 撤回
+    event QuotedRecord(address indexed owner, uint8 op, address tokenAddress, uint256 tokenId, uint256 price);//_op：1 质押 0 撤回
 
     //出售记录
-    event saleReocrd(address indexed buy, address sale, address tokenAddress, uint256 tokenId, uint256 price);
+    event SaleRecord(address indexed buy, address sale, address tokenAddress, uint256 tokenId, uint256 price);
 
     //支持的ERC721合约列表
     mapping (address => uint256) supportERC721TokenList;
@@ -257,7 +257,7 @@ contract swapNft is Ownable{
     function quoted(address _tokenAddress, uint256 _tokenId, uint256 _price) public {
         
         //是否支持该Token合约交易
-        require (supportERC721TokenList[_tokenAddress] > 0);
+        require (tokenIsSupport(_tokenAddress));
 
         //金额不能为空
         require (_price > 0);
@@ -273,7 +273,7 @@ contract swapNft is Ownable{
         //记录挂牌信息
         TokenSaleList[_tokenAddress][_tokenId] = SaleInfo(msg.sender, _price, block.number);
         
-        emit quotedRecord(msg.sender, 1, _tokenAddress, _tokenId, _price);
+        emit QuotedRecord(msg.sender, 1, _tokenAddress, _tokenId, _price);
 
     }
 
@@ -285,16 +285,14 @@ contract swapNft is Ownable{
         
         //删除拍卖信息
         delete TokenSaleList[_tokenAddress][_tokenId];
-        emit quotedRecord(msg.sender, 0, _tokenAddress, _tokenId, 0);
+        emit QuotedRecord(msg.sender, 0, _tokenAddress, _tokenId, 0);
 
         //撤回
         IERC721 ERC721_contract = IERC721(_tokenAddress);
         ERC721_contract.transferFrom(address(this), msg.sender, _tokenId);
 
         //将合约中的mesh销毁
-        if(_tokenAddress == meshTokenAddress){
-            _burnToken();
-        }
+        _burnToken();
     }
     
     
@@ -318,13 +316,10 @@ contract swapNft is Ownable{
         delete TokenSaleList[_tokenAddress][_tokenId];
 
         //记录事件
-        emit saleReocrd(msg.sender, TokenSaleList[_tokenAddress][_tokenId].owner, _tokenAddress, _tokenId, msg.value);
+        emit SaleRecord(msg.sender, TokenSaleList[_tokenAddress][_tokenId].owner, _tokenAddress, _tokenId, msg.value);
 
         //将合约中的mesh销毁
-        if(_tokenAddress == meshTokenAddress){
-            _burnToken();
-        }
-
+        _burnToken();
     }
 
     //管理员设置Token支持列表
