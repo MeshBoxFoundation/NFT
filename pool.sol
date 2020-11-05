@@ -706,6 +706,10 @@ contract ERC721 is ERC165, IERC721 {
             endBlock = lastRewardBlock;
         }
 
+        if(fromBlock > endBlock){
+            return;
+        }
+
         uint256 totalReward = (endBlock - fromBlock) * _blockReward[tokenId];
 
         _holdTokenClock[tokenId] = endBlock;
@@ -727,9 +731,14 @@ contract ERC721 is ERC165, IERC721 {
         return _holdTokenClock[tokenId];
     }
 
-    function getlastRewardBlock() view public returns(uint256) {
+    function getLastRewardBlock() view public returns(uint256) {
         return lastRewardBlock;
     }
+
+    function getFirstRewardBlock () view public returns(uint256) {
+        return firstRewardBlock;
+    }
+    
 
     function getBlockReward(uint256 tokenId) view public returns(uint256) {
         return _blockReward[tokenId];
