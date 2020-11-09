@@ -224,7 +224,7 @@ contract Ownable {
 }
 
 
-contract swapNft is Ownable{
+contract SwapNFT is Ownable{
 
     //挂牌记录
     event QuotedRecord(address indexed owner, uint8 op, address tokenAddress, uint256 tokenId, uint256 price);//_op：1 质押 0 撤回
@@ -312,11 +312,11 @@ contract swapNft is Ownable{
         //转移SMT给挂牌者
         TokenSaleList[_tokenAddress][_tokenId].owner.transfer(msg.value);
 
-        //删除挂牌信息
-        delete TokenSaleList[_tokenAddress][_tokenId];
-
         //记录事件
         emit SaleRecord(msg.sender, TokenSaleList[_tokenAddress][_tokenId].owner, _tokenAddress, _tokenId, msg.value);
+
+        //删除挂牌信息
+        delete TokenSaleList[_tokenAddress][_tokenId];
 
         //将合约中的mesh销毁
         _burnToken();
