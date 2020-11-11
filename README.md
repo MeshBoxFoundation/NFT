@@ -1,7 +1,7 @@
-# PreSale
+# PreSale:
 Source code about deposit of USDT, NFT and pool related to pre-sale.
 
-### deposit_usdt.sol
+### deposit_usdt.sol-https://etherscan.io/address/0x0f811fd704add9d1c933446f2992fbbb7137b9f1
 The main purpose is to use an erc20 USDT fund-raising contract. The fund can be withdrawn before the financing target is reached, but cannot be withdrawn after reaching the financing target. Administrators need to reach their goals before they can take it. The contract runs on Ethereum.
 
 ### pool.sol
@@ -12,7 +12,7 @@ The main change is to add MESH token rewards to users who hold contract NFT acco
 The main purpose is to exchange assets between users holding SMT and NFT tokens of erc721 contract. After the administrator registers the transaction qualification of the specified erc721 contract, the NFT token of the erc721 contract can pass the swap_ Meshbox contracts are exchanged. The contract runs on Spectrum.
 
 ### About swap_ meshbox.sol description of operation process
-1.Deploy [MESH contact](https://github.com/MeshBoxFoundation/token/blob/master/MeshBox.sol), enable transaction permission (call the enabletransfer method)
+1.Deploy [MESH](https://spectrum.pub/token.html?source=commonts&tokenF=0xa4c9af589c07b7539e5fcc45975b995a45e3f379), enable transaction permission (call the enabletransfer method)
 
 2.Deploy erc721, transfer erc721 contract address to mesh, and issue erc721 currency
 
