@@ -2,7 +2,7 @@
 Source code about deposit of USDT, NFT and pool related to pre-sale.
 
 ### deposit_usdt.sol
-The main purpose is to use an erc20 usdt fund-raising contract. The fund can be withdrawn before the financing target is reached, but cannot be withdrawn after reaching the financing target. Administrators need to reach their goals before they can take it. The contract runs on Ethereum.
+The main purpose is to use an erc20 USDT fund-raising contract. The fund can be withdrawn before the financing target is reached, but cannot be withdrawn after reaching the financing target. Administrators need to reach their goals before they can take it. The contract runs on Ethereum.
 
 ### pool.sol
 From [erc721_ Standard.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/release-v2.3.0/contracts/token/ERC721) standard contract obtained, developed the pool contract.
