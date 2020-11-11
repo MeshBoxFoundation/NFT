@@ -12,7 +12,7 @@ The main change is to add MESH token rewards to users who hold contract NFT acco
 The main purpose is to exchange assets between users holding SMT and NFT tokens of erc721 contract. After the administrator registers the transaction qualification of the specified erc721 contract, the NFT token of the erc721 contract can pass the swap_ Meshbox contracts are exchanged. The contract runs on Spectrum.
 
 ### About swap_ meshbox.sol description of operation process
-1.Deploy [MESH token](https://github.com/MeshBoxFoundation/token/blob/master/MeshBox.sol), enable transaction permission (call the enabletransfer method)
+1.Deploy [MESH contact](https://github.com/MeshBoxFoundation/token/blob/master/MeshBox.sol), enable transaction permission (call the enabletransfer method)
 
 2.Deploy erc721, transfer erc721 contract address to mesh, and issue erc721 currency
 
