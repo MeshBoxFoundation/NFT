@@ -1,7 +1,7 @@
 # PreSale:
 Source code about deposit of USDT, NFT and pool related to pre-sale.
 
-#### deposit_usdt.sol-https://etherscan.io/address/0x0f811fd704add9d1c933446f2992fbbb7137b9f1
+#### deposit_usdt.sol
 The main purpose is to use an erc20 USDT fund-raising contract. The fund can be withdrawn before the financing target is reached, but cannot be withdrawn after reaching the financing target. Administrators need to reach their goals before they can take it. The contract runs on Ethereum.
 
 #### pool.sol
