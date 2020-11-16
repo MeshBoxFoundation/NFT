@@ -422,6 +422,8 @@ contract ERC721 is ERC165, IERC721 {
 
     mapping (uint256 => uint256) private _holdTokenClock;
     
+    mapping (uint256 => uint256) _minningStatus;
+    
 
     /*
      *     bytes4(keccak256('balanceOf(address)')) == 0x70a08231
@@ -625,7 +627,12 @@ contract ERC721 is ERC165, IERC721 {
         _ownedTokensCount[owner].decrement();
         address receiveAddr = _tokenOwner[tokenId];
         _tokenOwner[tokenId] = address(0);
-        _settle(tokenId, receiveAddr);
+        if(getMinningStatus(tokenId)){
+            _settle(tokenId, receiveAddr);            
+        } else {
+            _settle(tokenId, address(0));
+        }
+        _minningStatus[tokenId] = 0;
 
         emit Transfer(owner, address(0), tokenId);
     }  
@@ -657,7 +664,13 @@ contract ERC721 is ERC165, IERC721 {
 
         _tokenOwner[tokenId] = to;
 
-        _settle(tokenId, from);
+        if(getMinningStatus(tokenId)){
+            _settle(tokenId, from);            
+        } else {
+            _settle(tokenId, address(0));
+        }
+        _minningStatus[tokenId] = 0;
+
         emit Transfer(from, to, tokenId);
     }
 
@@ -722,10 +735,33 @@ contract ERC721 is ERC165, IERC721 {
     }
 
     function withdraw(uint256 tokenId) public {
+
         require(ownerOf(tokenId) == msg.sender);
+
+        require (getMinningStatus(tokenId));
 
         _settle(tokenId, msg.sender);
     }
+
+
+    function startMining(uint256 tokenId) public {
+        
+        //是否是token拥有者
+        require(ownerOf(tokenId) == msg.sender);
+
+        //不能多次开启
+        if(getMinningStatus(tokenId)){
+            return;
+        }
+
+        //销毁已有token
+        _settle(tokenId, address(0));
+
+        //开启挖矿
+        _minningStatus[tokenId] = block.number;
+        
+    }
+    
 
     function getClockNumber(uint256 tokenId) public view returns(uint256) {
         return _holdTokenClock[tokenId];
@@ -735,15 +771,21 @@ contract ERC721 is ERC165, IERC721 {
         return lastRewardBlock;
     }
 
-    function getFirstRewardBlock () view public returns(uint256) {
+    function getFirstRewardBlock() view public returns(uint256) {
         return firstRewardBlock;
     }
-    
 
     function getBlockReward(uint256 tokenId) view public returns(uint256) {
         return _blockReward[tokenId];
     }
 
+    function getMinningStatus(uint256 tokenId) view public returns(bool) {
+        return _minningStatus[tokenId] > 0;
+    }
+
+    function getMinningStartBlock(uint256 tokenId) view public returns(uint256) {
+        return _minningStatus[tokenId];
+    }
 }
 
 
