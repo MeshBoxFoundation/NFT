@@ -11,7 +11,7 @@ interface IERC20 {
     function totalSupply() external view returns (uint256);
 
     /**
-     * @dev Returns the amount of tokens owned by `account`.
+     * @dev Returns the amount of tokens owned by ` ccount`.
      */
     function balanceOf(address account) external view returns (uint256);
 
@@ -291,8 +291,6 @@ contract SwapNFT is Ownable{
         IERC721 ERC721_contract = IERC721(_tokenAddress);
         ERC721_contract.transferFrom(address(this), msg.sender, _tokenId);
 
-        //将合约中的mesh销毁
-        _burnToken();
     }
     
     
@@ -318,8 +316,6 @@ contract SwapNFT is Ownable{
         //删除挂牌信息
         delete TokenSaleList[_tokenAddress][_tokenId];
 
-        //将合约中的mesh销毁
-        _burnToken();
     }
 
     //管理员设置Token支持列表
@@ -337,14 +333,6 @@ contract SwapNFT is Ownable{
         SaleInfo memory info = TokenSaleList[_tokenAddress][_tokenId];
         return (info.owner, info.price, info.number);
     }
-
-    //销毁合约中的Mesh
-    function _burnToken() internal {
-
-        IERC20 ERC20_contract = IERC20(meshTokenAddress);
-        ERC20_contract.transfer(address(0), ERC20_contract.balanceOf(address(this)));
-    }
-    
 
 }
 
