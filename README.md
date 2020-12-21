@@ -1,5 +1,5 @@
 # NFT:
-Source code about NFT and pool related to pre-sale.
+Source code about NFT and pool related.
 
 #### pool.sol
 From [erc721_ Standard.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/release-v2.3.0/contracts/token/ERC721) standard contract obtained, developed the pool contract.
